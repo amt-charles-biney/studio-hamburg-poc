@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/cn'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
@@ -12,43 +12,50 @@ export function AppShell() {
   const [collapsed, setCollapsed] = useState(false)
   const location = useLocation()
 
+  // Always close the mobile drawer on navigation.
+  useEffect(() => {
+    setDrawerOpen(false)
+  }, [location.pathname])
+
   return (
-    <div
-      className={cn(
-        'min-h-screen lg:grid',
-        collapsed ? 'lg:grid-cols-[76px_1fr]' : 'lg:grid-cols-[264px_1fr]',
-      )}
-    >
-      {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-screen lg:block">
+    <div className="min-h-screen lg:flex">
+      {/* Desktop sidebar — width animates on collapse/expand */}
+      <aside
+        className={cn(
+          'sticky top-0 hidden h-screen shrink-0 overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] lg:block',
+          collapsed ? 'lg:w-[76px]' : 'lg:w-[264px]',
+        )}
+      >
         <Sidebar collapsed={collapsed} />
       </aside>
 
-      {/* Mobile drawer */}
-      <AnimatePresence>
-        {drawerOpen && (
-          <div className="fixed inset-0 z-[60] lg:hidden">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-ink-950/40 backdrop-blur-sm"
-              onClick={() => setDrawerOpen(false)}
-            />
-            <motion.aside
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', stiffness: 320, damping: 32 }}
-              className="absolute left-0 top-0 h-full w-72 shadow-lift"
-            >
-              <Sidebar onNavigate={() => setDrawerOpen(false)} />
-            </motion.aside>
-          </div>
-        )}
-      </AnimatePresence>
+      {/*
+        Mobile drawer — always mounted, animated open/closed via `motion` and made
+        `pointer-events-none` when closed. Deliberately NOT using AnimatePresence:
+        its exit lifecycle can get stuck under React StrictMode, leaving an invisible
+        full-screen overlay that blocks all interaction.
+      */}
+      <div className={cn('fixed inset-0 z-[60] overflow-hidden lg:hidden', !drawerOpen && 'pointer-events-none')}>
+        <motion.div
+          className="absolute inset-0 bg-ink-950/40 backdrop-blur-sm"
+          initial={false}
+          animate={{ opacity: drawerOpen ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
+          style={{ pointerEvents: drawerOpen ? 'auto' : 'none' }}
+          onClick={() => setDrawerOpen(false)}
+          aria-hidden={!drawerOpen}
+        />
+        <motion.aside
+          className="absolute left-0 top-0 h-full w-72 shadow-lift"
+          initial={false}
+          animate={{ x: drawerOpen ? '0%' : '-100%' }}
+          transition={{ type: 'spring', stiffness: 320, damping: 34 }}
+        >
+          <Sidebar onNavigate={() => setDrawerOpen(false)} navLayoutId="nav-active-drawer" />
+        </motion.aside>
+      </div>
 
-      <div className="flex min-h-screen min-w-0 flex-col">
+      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
         <TopBar
           onMenu={() => setDrawerOpen(true)}
           collapsed={collapsed}

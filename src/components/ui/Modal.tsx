@@ -40,15 +40,15 @@ export function Modal({
   return (
     <AnimatePresence>
       {open && (
-        <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="absolute inset-0 bg-ink-950/40 backdrop-blur-sm"
-            onClick={onClose}
-          />
+        <motion.div
+          key="modal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-4"
+        >
+          <div className="absolute inset-0 bg-ink-950/40 backdrop-blur-sm" onClick={onClose} />
           <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -82,7 +82,7 @@ export function Modal({
             {children && <div className="overflow-y-auto px-5 py-4">{children}</div>}
             {footer && <div className="flex items-center justify-end gap-2 border-t border-ink-100 px-5 py-3">{footer}</div>}
           </motion.div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   )

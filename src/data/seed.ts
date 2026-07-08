@@ -33,14 +33,14 @@ export const defaultConfig: AppConfig = {
 }
 
 // ---------------------------------------------------------------------------
-// Companies (mix of NAF / CSAM; one inactive to exercise validation)
+// Companies (mix of NAV / SESAM; one inactive to exercise validation)
 // ---------------------------------------------------------------------------
 
 export const companies: Company[] = [
-  { companyNumber: '54', name: 'Studio Hamburg Produktion Gruppe GmbH', sourceSystem: 'NAF', active: true },
-  { companyNumber: '02', name: 'Real Film Produktion GmbH', sourceSystem: 'CSAM', active: true },
-  { companyNumber: '71', name: 'Studio Hamburg MCI GmbH', sourceSystem: 'NAF', active: true },
-  { companyNumber: '88', name: 'Nordlicht Film GmbH (i.L.)', sourceSystem: 'CSAM', active: false },
+  { companyNumber: '54', name: 'Studio Hamburg Produktion Gruppe GmbH', sourceSystem: 'NAV', active: true },
+  { companyNumber: '02', name: 'Real Film Produktion GmbH', sourceSystem: 'SESAM', active: true },
+  { companyNumber: '71', name: 'Studio Hamburg MCI GmbH', sourceSystem: 'NAV', active: true },
+  { companyNumber: '88', name: 'Nordlicht Film GmbH (i.L.)', sourceSystem: 'SESAM', active: false },
 ]
 
 // ---------------------------------------------------------------------------

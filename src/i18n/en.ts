@@ -134,7 +134,7 @@ export const en: Dict = {
 
   // ---- Intake dashboard --------------------------------------------------
   'intake.title': 'Intake',
-  'intake.subtitle': 'Incoming invoice files from NAF & CSAM — parsed, validated and deduplicated.',
+  'intake.subtitle': 'Incoming invoice files from NAV & SESAM — parsed, validated and deduplicated.',
   'intake.tab.queue': 'Intake queue',
   'intake.tab.errors': 'Error queue',
   'intake.tab.incomplete': 'Incomplete pairs',

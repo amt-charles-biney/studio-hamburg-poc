@@ -17,7 +17,7 @@ export function CompanyTag({ companyNumber, className }: { companyNumber: string
         <span
           className={cn(
             'rounded px-1 py-0.5 text-[9px] font-bold uppercase tracking-wide',
-            company.sourceSystem === 'NAF' ? 'bg-sky-100 text-sky-700' : 'bg-teal-100 text-teal-700',
+            company.sourceSystem === 'NAV' ? 'bg-sky-100 text-sky-700' : 'bg-teal-100 text-teal-700',
           )}
         >
           {company.sourceSystem}

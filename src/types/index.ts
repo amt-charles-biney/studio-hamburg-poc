@@ -3,7 +3,7 @@
 // This file is the shared contract for the engine, store, seed data and UI.
 // ============================================================================
 
-export type SourceSystem = 'NAF' | 'CSAM'
+export type SourceSystem = 'NAV' | 'SESAM'
 
 export interface Company {
   companyNumber: string // 2-digit code, e.g. "54", "02"

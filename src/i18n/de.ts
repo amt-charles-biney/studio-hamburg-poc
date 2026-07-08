@@ -134,7 +134,7 @@ export const de: Dict = {
 
   // ---- Intake dashboard --------------------------------------------------
   'intake.title': 'Eingang',
-  'intake.subtitle': 'Eingehende Rechnungsdateien aus NAF & CSAM — geparst, geprüft und dedupliziert.',
+  'intake.subtitle': 'Eingehende Rechnungsdateien aus NAV & SESAM — geparst, geprüft und dedupliziert.',
   'intake.tab.queue': 'Eingangswarteschlange',
   'intake.tab.errors': 'Fehlerwarteschlange',
   'intake.tab.incomplete': 'Unvollständige Paare',
